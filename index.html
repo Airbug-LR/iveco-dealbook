@@ -10,209 +10,241 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     
     <style>
-        body { background-color: #f8fafc; }
-        .fade-in { animation: fadeIn 0.5s ease-in; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        body { background-color: #f8fafc; font-family: 'Segoe UI', sans-serif; }
+        .fade-in { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
     <div id="root"></div>
 
     <script type="text/babel">
-        // --- COMPONENTI ICONE (Per evitare dipendenze esterne complesse) ---
-        const IconTruck = () => (
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400 group-hover:text-blue-600 mb-3"><path d="M10 17h4V5H2v12h3"/><path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5"/><path d="M14 17h1"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
-        );
-        const IconBriefcase = () => (
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400 group-hover:text-blue-600 mb-3"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-        );
-        const IconCalc = () => (
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-600"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
-        );
-        const IconRefresh = () => (
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-600"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
-        );
-        const IconLeaf = () => (
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-600"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
-        );
-        const IconCheck = () => (
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-600"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-        );
-        const IconArrow = () => (
-             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-300 group-hover:text-blue-500"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        );
+        // --- ICONE ---
+        const IconCheck = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>;
+        const IconArrow = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>;
+        const IconUser = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>;
+        const IconTruck = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="4" height="4" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/></svg>;
 
-        // --- APP LOGIC ---
+        // --- APP PRINCIPALE ---
         const DealBookApp = () => {
+            // Stati per gestire il flusso
             const [step, setStep] = React.useState(1);
-            const [selections, setSelections] = React.useState({ persona: '', goal: '' });
+            const [showLeadForm, setShowLeadForm] = React.useState(false);
+            const [formSubmitted, setFormSubmitted] = React.useState(false);
 
+            // Dati raccolti
+            const [data, setData] = React.useState({
+                vehicle: '',      // Light, Medium, Heavy
+                role: '',         // Manager, OwnerDriver
+                subRole: '',      // Small/Large Fleet oppure OwnerOnly/OwnerDriver
+                goal: ''          // Ownership, Usage, Green
+            });
+
+            // Logica delle raccomandazioni
             const getRecommendation = () => {
-                if (selections.goal === 'green') return {
-                title: "GATE (Green & Advanced Transport Ecosystem)",
-                desc: "The pay-per-use solution dedicated to the electric transition. Complete Truck-as-a-Service.",
-                features: ["Pay-per-use model", "Ecosystem Services Included", "Zero Residual Risk"]
+                if (data.goal === 'green') return {
+                    title: "GATE (Green & Advanced Transport Ecosystem)",
+                    desc: "La soluzione pay-per-use dedicata alla transizione elettrica. Truck-as-a-Service completo.",
+                    features: ["Modello Pay-per-use", "Ecosistema di servizi inclusi", "Zero rischi residui"]
                 };
-                if (selections.goal === 'usage') return {
-                title: "Operating Lease & Full Service",
-                desc: "Maximum flexibility. Pay for usage without burdening the balance sheet. Ideal for certain TCO.",
-                features: ["All-inclusive Fee", "Maintenance Included", "No Resale Risk"]
+                if (data.goal === 'usage') return {
+                    title: "Operating Lease & Full Service",
+                    desc: "Massima flessibilità. Paghi per l'uso senza appesantire il bilancio. Ideale per TCO certo.",
+                    features: ["Canone All-inclusive", "Manutenzione inclusa", "Nessun rischio rivendita"]
                 };
                 return {
-                title: "Instalment Sale / Financial Lease",
-                desc: "The classic path to ownership. Build equity in your IVECO vehicle.",
-                features: ["Final Ownership", "Fiscal Depreciation", "Flexible Plans"]
+                    title: "Leasing Finanziario / Vendita Rateale",
+                    desc: "La strada classica verso la proprietà. Costruisci valore nel tuo veicolo IVECO.",
+                    features: ["Proprietà finale", "Ammortamento fiscale", "Piani flessibili"]
                 };
+            };
+
+            const handleSelect = (key, value) => {
+                setData(prev => ({ ...prev, [key]: value }));
+                setStep(prev => prev + 1);
             };
 
             const reset = () => {
                 setStep(1);
-                setSelections({ persona: '', goal: '' });
+                setShowLeadForm(false);
+                setFormSubmitted(false);
+                setData({ vehicle: '', role: '', subRole: '', goal: '' });
             };
 
-            return (
-                <div className="min-h-screen p-6 flex flex-col items-center justify-center font-sans">
-                
-                {/* Header */}
-                <header className="w-full max-w-2xl mb-8 text-center">
-                    <h1 className="text-3xl font-bold text-blue-900 mb-2 tracking-tight">IVECO CAPITAL</h1>
-                    <p className="text-lg text-blue-600 font-medium">Empowering Mobility with Financial Confidence</p>
-                    <div className="h-1 w-20 bg-blue-500 mx-auto mt-4 rounded-full"></div>
-                </header>
-
-                {/* Main Card */}
-                <div className="w-full max-w-2xl bg-white shadow-2xl rounded-2xl overflow-hidden border border-slate-200">
-                    
-                    {/* Progress Bar */}
-                    <div className="bg-slate-100 h-2 w-full">
-                    <div 
-                        className="h-full bg-blue-600 transition-all duration-500 ease-out"
-                        style={{ width: `${(step / 3) * 100}%` }}
-                    ></div>
-                    </div>
-
-                    <div className="p-8">
-                    
-                    {/* STEP 1 */}
-                    {step === 1 && (
-                        <div className="fade-in">
-                        <h2 className="text-2xl font-bold mb-6 flex items-center gap-2 text-slate-800">
-                            <span className="bg-blue-100 text-blue-800 text-sm py-1 px-3 rounded-full">Step 1</span>
-                            Who are you?
-                        </h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <button 
-                            onClick={() => { setSelections({...selections, persona: 'owner'}); setStep(2); }}
-                            className="p-6 border-2 border-slate-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all text-left group"
-                            >
-                            <IconTruck />
-                            <h3 className="font-bold text-lg text-slate-800">Driver / Owner-Operator</h3>
-                            <p className="text-slate-500 text-sm mt-1">Single vehicle or micro-fleet owner focused on reliability.</p>
-                            </button>
-
-                            <button 
-                            onClick={() => { setSelections({...selections, persona: 'fleet'}); setStep(2); }}
-                            className="p-6 border-2 border-slate-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all text-left group"
-                            >
-                            <IconBriefcase />
-                            <h3 className="font-bold text-lg text-slate-800">Fleet Manager / SME</h3>
-                            <p className="text-slate-500 text-sm mt-1">Managing multiple assets, focused on TCO and efficiency.</p>
-                            </button>
-                        </div>
-                        </div>
-                    )}
-
-                    {/* STEP 2 */}
-                    {step === 2 && (
-                        <div className="fade-in">
-                        <h2 className="text-2xl font-bold mb-6 flex items-center gap-2 text-slate-800">
-                            <span className="bg-blue-100 text-blue-800 text-sm py-1 px-3 rounded-full">Step 2</span>
-                            What is your primary goal?
-                        </h2>
-                        <div className="space-y-3">
-                            <button 
-                            onClick={() => { setSelections({...selections, goal: 'ownership'}); setStep(3); }}
-                            className="w-full p-4 border border-slate-200 rounded-lg hover:bg-blue-50 hover:border-blue-500 flex items-center justify-between group transition-all"
-                            >
-                            <div className="flex items-center gap-4">
-                                <div className="bg-slate-100 p-2 rounded-full group-hover:bg-white"><IconCalc /></div>
-                                <div className="text-left">
-                                <div className="font-bold text-slate-800">Ownership</div>
-                                <div className="text-xs text-slate-500">I want to own the truck at the end.</div>
-                                </div>
-                            </div>
-                            <IconArrow />
-                            </button>
-
-                            <button 
-                            onClick={() => { setSelections({...selections, goal: 'usage'}); setStep(3); }}
-                            className="w-full p-4 border border-slate-200 rounded-lg hover:bg-blue-50 hover:border-blue-500 flex items-center justify-between group transition-all"
-                            >
-                            <div className="flex items-center gap-4">
-                                <div className="bg-slate-100 p-2 rounded-full group-hover:bg-white"><IconRefresh /></div>
-                                <div className="text-left">
-                                <div className="font-bold text-slate-800">Usage Flexibility</div>
-                                <div className="text-xs text-slate-500">I need flexibility and predictable costs (Truck as a Service).</div>
-                                </div>
-                            </div>
-                            <IconArrow />
-                            </button>
-
-                            <button 
-                            onClick={() => { setSelections({...selections, goal: 'green'}); setStep(3); }}
-                            className="w-full p-4 border border-green-100 rounded-lg hover:bg-green-50 hover:border-green-500 flex items-center justify-between group transition-all"
-                            >
-                            <div className="flex items-center gap-4">
-                                <div className="bg-green-100 p-2 rounded-full group-hover:bg-white"><IconLeaf /></div>
-                                <div className="text-left">
-                                <div className="font-bold text-slate-800">Green Transition</div>
-                                <div className="text-xs text-slate-500">eMobility and Pay-per-Use solutions.</div>
-                                </div>
-                            </div>
-                            <IconArrow />
-                            </button>
-                        </div>
-                        <button onClick={() => setStep(1)} className="mt-6 text-slate-400 hover:text-slate-600 text-sm underline">Back to start</button>
-                        </div>
-                    )}
-
-                    {/* STEP 3 */}
-                    {step === 3 && (
-                        <div className="fade-in text-center">
-                        <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <IconCheck />
-                        </div>
-                        <h2 className="text-sm font-bold text-slate-400 uppercase tracking-wide mb-2">Recommended Solution</h2>
-                        <h3 className="text-3xl font-bold text-blue-900 mb-4">{getRecommendation().title}</h3>
-                        <p className="text-slate-600 mb-8 max-w-md mx-auto">{getRecommendation().desc}</p>
+            // Componente Modale per Lead Generation
+            const LeadModal = () => (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 fade-in">
+                    <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl relative">
+                        <button onClick={() => setShowLeadForm(false)} className="absolute top-4 right-4 text-slate-400 hover:text-slate-600">✕</button>
                         
-                        <div className="bg-slate-50 rounded-xl p-6 text-left mb-8">
-                            <h4 className="font-bold text-slate-800 mb-3 text-sm uppercase">Key Benefits:</h4>
-                            <ul className="space-y-2">
-                            {getRecommendation().features.map((feat, i) => (
-                                <li key={i} className="flex items-center gap-2 text-slate-700">
-                                <div className="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
-                                {feat}
-                                </li>
-                            ))}
-                            </ul>
-                        </div>
-
-                        <div className="flex flex-col gap-3">
-                            <button className="w-full py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200">
-                            Request Quote
-                            </button>
-                            <button onClick={reset} className="text-slate-500 hover:text-blue-600 text-sm py-2">
-                            Start Over
-                            </button>
-                        </div>
-                        </div>
-                    )}
-
+                        {!formSubmitted ? (
+                            <>
+                                <h3 className="text-2xl font-bold text-blue-900 mb-2">Request Quote</h3>
+                                <p className="text-slate-600 mb-6 text-sm">Compila i dati per essere contattato da un esperto IVECO Capital.</p>
+                                <form onSubmit={(e) => { e.preventDefault(); setFormSubmitted(true); }} className="space-y-4">
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <input type="text" required placeholder="Nome" className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
+                                        <input type="text" required placeholder="Cognome" className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
+                                    </div>
+                                    <input type="text" placeholder="Nome Azienda" className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
+                                    <input type="email" required placeholder="Email Aziendale" className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
+                                    <input type="tel" required placeholder="Telefono" className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
+                                    
+                                    <button type="submit" className="w-full py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors shadow-lg mt-2">
+                                        Invia Richiesta
+                                    </button>
+                                </form>
+                            </>
+                        ) : (
+                            <div className="text-center py-8">
+                                <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <IconCheck />
+                                </div>
+                                <h3 className="text-2xl font-bold text-slate-800 mb-2">Richiesta Inviata!</h3>
+                                <p className="text-slate-600">Un nostro consulente ti contatterà a breve.</p>
+                                <button onClick={reset} className="mt-6 text-blue-600 font-medium hover:underline">Torna all'inizio</button>
+                            </div>
+                        )}
                     </div>
                 </div>
-                
-                <p className="mt-8 text-slate-400 text-xs">IVECO CAPITAL - Internal Strategic Prototype v1.1</p>
+            );
+
+            // --- RENDER DEI PASSI ---
+            return (
+                <div className="min-h-screen p-4 flex flex-col items-center justify-center font-sans text-slate-800">
+                    
+                    {/* Header */}
+                    <header className="w-full max-w-2xl mb-8 text-center">
+                        <h1 className="text-3xl font-bold text-blue-900 mb-1 tracking-tight">IVECO CAPITAL</h1>
+                        <p className="text-blue-600 font-medium">Financial Solutions Configurator</p>
+                        <div className="h-1 w-16 bg-blue-500 mx-auto mt-4 rounded-full"></div>
+                    </header>
+
+                    {/* Main Card */}
+                    <div className="w-full max-w-2xl bg-white shadow-xl rounded-2xl overflow-hidden border border-slate-200 relative">
+                        
+                        {/* Progress Bar (4 Steps) */}
+                        <div className="bg-slate-100 h-1.5 w-full">
+                            <div className="h-full bg-blue-600 transition-all duration-500 ease-out" style={{ width: `${((step-1) / 4) * 100}%` }}></div>
+                        </div>
+
+                        <div className="p-6 md:p-10 min-h-[400px] flex flex-col justify-center">
+
+                            {/* STEP 1: VEHICLE TYPE */}
+                            {step === 1 && (
+                                <div className="fade-in">
+                                    <h2 className="text-2xl font-bold mb-6 text-center">Which vehicle are you looking to buy?</h2>
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                        {['Light', 'Medium', 'Heavy'].map(opt => (
+                                            <button key={opt} onClick={() => handleSelect('vehicle', opt)} 
+                                                className="p-4 border-2 border-slate-100 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all text-center font-semibold text-slate-700 hover:text-blue-800">
+                                                {opt} Range
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* STEP 2: ROLE */}
+                            {step === 2 && (
+                                <div className="fade-in">
+                                    <button onClick={() => setStep(1)} className="text-xs text-slate-400 mb-4 hover:text-blue-600">← Back</button>
+                                    <h2 className="text-2xl font-bold mb-6 text-center">Are you a Fleet Manager or Owner/Driver?</h2>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <button onClick={() => handleSelect('role', 'manager')} className="p-6 border-2 border-slate-100 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all flex flex-col items-center gap-3">
+                                            <IconUser /> <span className="font-bold text-lg">Fleet Manager</span>
+                                        </button>
+                                        <button onClick={() => handleSelect('role', 'owner')} className="p-6 border-2 border-slate-100 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all flex flex-col items-center gap-3">
+                                            <IconTruck /> <span className="font-bold text-lg">Owner / Driver</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* STEP 3: SUB-ROLE (Dynamic) */}
+                            {step === 3 && (
+                                <div className="fade-in">
+                                    <button onClick={() => setStep(2)} className="text-xs text-slate-400 mb-4 hover:text-blue-600">← Back</button>
+                                    <h2 className="text-2xl font-bold mb-6 text-center">Tell us more about your business</h2>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        {data.role === 'manager' ? (
+                                            <>
+                                                <button onClick={() => handleSelect('subRole', 'small_fleet')} className="p-5 border border-slate-200 rounded-lg hover:bg-blue-50 hover:border-blue-500 font-semibold">Small Fleet</button>
+                                                <button onClick={() => handleSelect('subRole', 'large_fleet')} className="p-5 border border-slate-200 rounded-lg hover:bg-blue-50 hover:border-blue-500 font-semibold">Large Fleet</button>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <button onClick={() => handleSelect('subRole', 'owner_only')} className="p-5 border border-slate-200 rounded-lg hover:bg-blue-50 hover:border-blue-500 font-semibold">Owner Only</button>
+                                                <button onClick={() => handleSelect('subRole', 'owner_driver')} className="p-5 border border-slate-200 rounded-lg hover:bg-blue-50 hover:border-blue-500 font-semibold">Owner & Driver</button>
+                                            </>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* STEP 4: GOAL (Necessity) */}
+                            {step === 4 && (
+                                <div className="fade-in">
+                                    <button onClick={() => setStep(3)} className="text-xs text-slate-400 mb-4 hover:text-blue-600">← Back</button>
+                                    <h2 className="text-2xl font-bold mb-6 text-center">What is your primary goal?</h2>
+                                    <div className="space-y-3">
+                                        <button onClick={() => handleSelect('goal', 'ownership')} className="w-full p-4 border border-slate-200 rounded-lg hover:bg-blue-50 hover:border-blue-500 flex justify-between items-center group transition-all">
+                                            <div className="text-left">
+                                                <div className="font-bold text-slate-800">Ownership</div>
+                                                <div className="text-xs text-slate-500">I want to own the vehicle at the end.</div>
+                                            </div>
+                                            <IconArrow />
+                                        </button>
+                                        <button onClick={() => handleSelect('goal', 'usage')} className="w-full p-4 border border-slate-200 rounded-lg hover:bg-blue-50 hover:border-blue-500 flex justify-between items-center group transition-all">
+                                            <div className="text-left">
+                                                <div className="font-bold text-slate-800">Usage Flexibility</div>
+                                                <div className="text-xs text-slate-500">I need predictable costs (Truck as a Service).</div>
+                                            </div>
+                                            <IconArrow />
+                                        </button>
+                                        <button onClick={() => handleSelect('goal', 'green')} className="w-full p-4 border border-green-100 rounded-lg hover:bg-green-50 hover:border-green-500 flex justify-between items-center group transition-all">
+                                            <div className="text-left">
+                                                <div className="font-bold text-slate-800">Green Transition</div>
+                                                <div className="text-xs text-slate-500">eMobility & Pay-per-Use solutions.</div>
+                                            </div>
+                                            <IconArrow />
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* STEP 5: RESULT */}
+                            {step === 5 && (
+                                <div className="fade-in text-center">
+                                    <div className="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-bold mb-4 uppercase tracking-wide">Recommended Solution</div>
+                                    <h3 className="text-3xl font-bold text-blue-900 mb-4">{getRecommendation().title}</h3>
+                                    <p className="text-slate-600 mb-8 max-w-md mx-auto">{getRecommendation().desc}</p>
+                                    
+                                    <div className="bg-slate-50 rounded-xl p-6 text-left mb-8 border border-slate-100">
+                                        <h4 className="font-bold text-slate-800 mb-3 text-sm uppercase">Key Benefits:</h4>
+                                        <ul className="space-y-2">
+                                            {getRecommendation().features.map((feat, i) => (
+                                                <li key={i} className="flex items-center gap-2 text-slate-700 text-sm">
+                                                    <div className="w-1.5 h-1.5 bg-blue-500 rounded-full"></div> {feat}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+
+                                    <div className="flex flex-col gap-3">
+                                        <button onClick={() => setShowLeadForm(true)} className="w-full py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200">
+                                            Request Quote
+                                        </button>
+                                        <button onClick={reset} className="text-slate-400 hover:text-slate-600 text-sm py-2">Start Over</button>
+                                    </div>
+                                </div>
+                            )}
+
+                        </div>
+                    </div>
+                    
+                    {showLeadForm && <LeadModal />}
+                    <p className="mt-8 text-slate-400 text-xs">IVECO CAPITAL - Configurator v2.0</p>
                 </div>
             );
         };
